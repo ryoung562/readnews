@@ -8,3 +8,11 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
+  app:
+    image: rlkamradt/newsreader
+    environment:
+      NEWSAPI_KEY: ${NEWSAPI_KEY}
+      MONGO_USER: admin
+      MONGO_PASS: admin
+    depends_on:
+      - "mongodb"
