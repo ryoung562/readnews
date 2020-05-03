@@ -23,9 +23,7 @@
  */
 package net.kamradtfamily.readnews;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
-import java.time.LocalDate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,13 +40,11 @@ import reactor.core.publisher.Flux;
 @RequestMapping("/v1/headlines")
 public class ReadHeadlinesControllerV1 {
     private static final int MAX_LIMIT = 1000;
-        
+    
     private final InsertsReactiveRepository newsReactiveRepository;
-    private final ObjectMapper objectMapper;
-    ReadHeadlinesControllerV1(final InsertsReactiveRepository newsReactiveRepository,
-            ObjectMapper objectMapper) {
+    
+    ReadHeadlinesControllerV1(final InsertsReactiveRepository newsReactiveRepository) {
         this.newsReactiveRepository = newsReactiveRepository;
-        this.objectMapper = objectMapper;
     }
     
     @GetMapping(path="", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -58,18 +54,18 @@ public class ReadHeadlinesControllerV1 {
                 : limit;
         return newsReactiveRepository
                 .findAll()
-                .flatMap(r -> Flux.fromIterable(r.articles))
+                .flatMap(r -> Flux.fromIterable(r.getArticles()))
                 .filter(r -> filterByDate(r, from, to))
                 .limitRequest(actualLimit);
     }
 
     private boolean filterByDate(final Inserts.Articles record, final Instant from, Instant to) {
-        if(record == null || record.publishedAt == null) {
+        if(record == null || record.getPublishedAt() == null) {
             return false;
         }
         Instant theDate;
         try {
-            theDate = Instant.parse(record.publishedAt);
+            theDate = Instant.parse(record.getPublishedAt());
         } catch(Exception ex) {
             return false;
         }

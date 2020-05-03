@@ -57,7 +57,7 @@
                 <version>2.2.0</version>
                 <configuration>
                     <to>
-                      <image>docker.io/rlkamradt/readnew</image>
+                      <image>docker.io/rlkamradt/readnews</image>
                    </to>
                </configuration>
             </plugin>

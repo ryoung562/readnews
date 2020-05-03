@@ -33,24 +33,24 @@ import org.springframework.data.annotation.Id;
  */
 @Data
 public class Inserts {
-    @Id String id;
-    String status;
-    Integer totalResults;
-    List<Articles> articles;
+    private @Id String id;
+    private String status;
+    private Integer totalResults;
+    private List<Articles> articles;
     @Data
     public static class Articles {
-        Source source;
-        String author;
-        String title;
-        String description;
-        String url;
-        String urlToImage;
-        String publishedAt;
-        String content;
+        private Source source;
+        private String author;
+        private String title;
+        private String description;
+        private String url;
+        private String urlToImage;
+        private String publishedAt;
+        private String content;
     }
     @Data
     public static class Source {
-        String id;
-        String name;
+        private String id;
+        private String name;
     }
 }
