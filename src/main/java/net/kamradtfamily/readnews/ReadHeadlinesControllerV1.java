@@ -52,10 +52,12 @@ public class ReadHeadlinesControllerV1 {
         long actualLimit = limit == null || limit == 0 || limit > MAX_LIMIT 
                 ? MAX_LIMIT
                 : limit;
+        log.info("returning news with " + actualLimit);
         return newsReactiveRepository
                 .findAll()
                 .flatMap(r -> Flux.fromIterable(r.getArticles()))
                 .filter(r -> filterByDate(r, from, to))
+                .doFinally((type) -> log.info("returned news with limit " + actualLimit + " type " + type))
                 .limitRequest(actualLimit);
     }
 
