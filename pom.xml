@@ -70,10 +70,10 @@
                 <version>2.2.0</version>
                 <configuration>
                     <to>
-                      <image>docker.io/rlkamradt/readnews</image>
+                      <image>docker.io/rickstyle/readnews</image>
                    </to>
                </configuration>
-            </plugin>
+            </plugin>s
              <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
